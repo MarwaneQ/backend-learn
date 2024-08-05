@@ -18,11 +18,17 @@ const requestHandler = (req, res) => {
     req.on("data", (chunk) => {
       console.log(chunk);
       body.push(chunk);
+      //The req.on("data", ...) event listener listens for incoming data chunks. Each time a chunk of data is received, it's pushed into the body array. The console.log(chunk); statement logs each chunk to the console.
     });
+    //Handle End of Data Reception:
     req.on("end", () => {
       const parsedBody = Buffer.concat(body).toString();
       const message = parsedBody.split("=")[1];
       fs.writeFileSync("message.txt", message);
+      //       The req.on("end", ...) event listener executes when all data has been received. Here's what happens inside this event handler:
+      // Buffer.concat(body).toString(): Concatenates all data chunks into a single buffer and converts it to a string.
+      // parsedBody.split("=")[1]: Splits the parsed body string at the equal sign (=) and retrieves the second part (the message content).
+      // fs.writeFileSync("message.txt", message): Writes the message to a file named message.txt using the fs module's writeFileSync method.
     });
     res.statusCode = 302;
     res.setHeader("Location", "/");
