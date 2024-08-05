@@ -22,17 +22,18 @@ const requestHandler = (req, res) => {
     });
     //Handle End of Data Reception:
     req.on("end", () => {
-      const parsedBody = Buffer.concat(body).toString();
-      const message = parsedBody.split("=")[1];
+      const message = Buffer.concat(body).toString().split("=")[1];
       fs.writeFileSync("message.txt", message);
       //       The req.on("end", ...) event listener executes when all data has been received. Here's what happens inside this event handler:
       // Buffer.concat(body).toString(): Concatenates all data chunks into a single buffer and converts it to a string.
       // parsedBody.split("=")[1]: Splits the parsed body string at the equal sign (=) and retrieves the second part (the message content).
       // fs.writeFileSync("message.txt", message): Writes the message to a file named message.txt using the fs module's writeFileSync method.
     });
+    //
     res.statusCode = 302;
     res.setHeader("Location", "/");
     return res.end();
+    //Finally, the server responds with a status code of 302, which indicates a redirection. It sets the Location header to /, instructing the client's browser to redirect to the root URL. res.end() ends the response process.
   }
   res.setHeader("Content-Type", "text/html");
   res.write("<html>");
@@ -41,6 +42,7 @@ const requestHandler = (req, res) => {
   res.write("</html>");
   res.end();
 };
+// export the requestHandler function so that it can be used in other files.
 // module.exports = requestHandler;
 // module.exports = {
 //   handler: requestHandler,
