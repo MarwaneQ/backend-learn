@@ -28,10 +28,16 @@
 // })
 // app.listen(3000);
 const express = require('express');
+const bodyparser = require('body-parser');
 const app = express();
-app.use('/users',(req,res,next)=>{
-  res.send('<h1>Users</h1>');
+app.use(bodyparser.urlencoded({extended:false}));
+app.use('/add-users',(req,res,next)=>{
+  res.send('<form action="/users" method="POST"><input type="text" name="username"><button type="submit">Add User</button></form>');
 });
+app.use('/users',(req,res,next)=>{
+console.log(req.body);
+res.redirect('/');
+})
 app.use('/',(req,res,next)=>{
   res.send('<h1>Home</h1>');
 });
