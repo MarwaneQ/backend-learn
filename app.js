@@ -33,7 +33,8 @@ const adminRoutes = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
 const bodyparser = require('body-parser');
 const app = express();
-app.use(bodyparser.urlencoded({extended:false}));
+app.use(bodyparser.urlencoded({extended:false})); //parsing the body
+app.use(express.static(path.join(__dirname,'public'))); //filtering path
 app.use('/admin',adminRoutes); //filtering path
 app.use(shopRoutes)
 app.use((req,res,next)=>{
