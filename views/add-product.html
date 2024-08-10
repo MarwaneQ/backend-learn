@@ -4,6 +4,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
   </head>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+    input {
+      margin-bottom: 1rem;
+      padding: 0.5rem;
+    }
+    button {
+      padding: 0.5rem;
+    }
+  </style>
   <body>
     <form action="/admin/add-product" method="POST">
       <input type="text" name="title" /><button type="submit">
