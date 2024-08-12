@@ -35,7 +35,7 @@ const bodyparser = require('body-parser');
 const app = express();
 app.use(bodyparser.urlencoded({extended:false})); //parsing the body
 app.use(express.static(path.join(__dirname,'public'))); //filtering path
-app.use('/admin',adminRoutes); //filtering path
+app.use('/admin',adminRoutes.routes); //filtering path
 app.use(shopRoutes)
 app.use((req,res,next)=>{
   res.status(404).sendFile(path.join(__dirname,'views','404.html'));
