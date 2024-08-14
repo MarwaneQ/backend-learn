@@ -34,6 +34,7 @@ const shopRoutes = require("./routes/shop");
 const bodyparser = require("body-parser");
 const app = express();
 app.set("view engine", "pug"); //setting view engine
+app.set("views", "views"); //setting views path
 app.use(bodyparser.urlencoded({ extended: false })); //parsing the body
 app.use(express.static(path.join(__dirname, "public"))); //filtering path
 app.use("/admin", adminRoutes.routes); //filtering path
