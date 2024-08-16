@@ -33,13 +33,13 @@ const adminRoutes = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
 const bodyparser = require("body-parser");
 const app = express();
-app.set("view engine", "pug"); //setting view engine
+app.set("view engine", "ejs"); //setting view engine
 app.set("views", "views"); //setting views path
 app.use(bodyparser.urlencoded({ extended: false })); //parsing the body
 app.use(express.static(path.join(__dirname, "public"))); //filtering path
 app.use("/admin", adminRoutes.routes); //filtering path
 app.use(shopRoutes);
 app.use((req, res, next) => {
-  res.status(404).sendFile(path.join(__dirname, "views", "404.html"));
+  res.status(404).render("404", { pageTitle: "Page Not Found" });
 });
 app.listen(3000);
