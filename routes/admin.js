@@ -1,12 +1,10 @@
-const path = require('path');
+const path = require('path'); // Import path
 
-const express = require('express');
+const express = require('express'); // Import express
 
-const rootDir = require('../util/path');
+const router = express.Router(); // Create a router object
 
-const router = express.Router();
-
-const products = [];
+const products = []; // Create an empty array for products
 
 // /admin/add-product => GET
 router.get('/add-product', (req, res, next) => {
