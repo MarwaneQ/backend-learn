@@ -1,15 +1,13 @@
 const path = require("path");
 const fs = require("fs");
-const products = []; // Create an empty array for products
 
 module.exports = class Product {
-  constructor(title,imgUrl,description,price) {
+  constructor(title, imgUrl, description, price) {
     this.title = title;
     this.imgUrl = imgUrl;
     this.description = description;
     this.price = price;
   }
-
   save() {
     const product = path.join(
       path.dirname(require.main.filename),
