@@ -10,6 +10,8 @@ router.get('/', shopController.getIndex);
 
 router.get('/products', shopController.getProducts);
 
+router.get('/products/:productId', shopController.getProduct ); // This route has to be defined before the /products route because otherwise it would be interpreted as a route parameter
+
 router.get('/cart', shopController.getCart);
 
 router.get('/orders', shopController.getOrders);
