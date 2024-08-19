@@ -28,15 +28,19 @@ exports.getEditProduct = (req, res, next) => {
   Product.findById(prodId, (product) => {
     if (!product) {
       return res.redirect("/");
-    } else {
-      res.render("admin/edit-product", {
-        pageTitle: "Edit Product",
-        path: "/admin/edit-product",
-        editing: editMode,
-      });
     }
+    res.render("admin/edit-product", {
+      pageTitle: "Edit Product",
+      path: "/admin/edit-product",
+      editing: editMode,
+      product: product
+    });
   });
 };
+
+exports.postEditProduct = (req,res,next) =>{
+  
+}
 
 exports.getProducts = (req, res, next) => {
   Product.fetchAll((products) => {
