@@ -1,5 +1,5 @@
 const db = require("../util/database");
-
+const path = require("path");
 const Cart = require("./cart");
 
 // const p = path.join(
@@ -30,5 +30,7 @@ module.exports = class Product {
     return db.execute("SELECT * FROM products");
   }
 
-  static findById(id) {}
+  static findById(id) {
+    return db.execute("SELECT * FROM products WHERE products.id = ?", [id]); // This is a promise because of the .execute() method in database.js file which returns a promise
+  }
 };
