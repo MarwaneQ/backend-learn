@@ -17,7 +17,12 @@ module.exports = class Product {
     this.price = price;
   }
 
-  save() {}
+  save() {
+    return db.execute(
+      "INSERT INTO products (title, price, imageUrl, description) VALUES (?, ?, ?, ?)",
+      [this.title, this.price, this.imageUrl, this.description]
+    ); // This is a promise because of the .execute() method in database.js file which returns a promise
+  }
 
   static deleteById(id) {}
 
