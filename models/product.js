@@ -23,7 +23,7 @@
 //     allowNull: false, // allowNull is a property that makes the description required
 //   },
 // });
-
+const {ObjectId} = require("mongodb");
 const getDb = require("../util/database").getDb;
 class Product {
   constructor(title, imageUrl, description, price) {
@@ -58,6 +58,19 @@ class Product {
         console.log(err);
       });
   }
-  static findById(id) {}
+  static findById(prodId) {
+    const db = getDb();
+    return db
+      .collection("products")
+      .find({ _id: new ObjectId(prodId) })
+      .next()
+      .then((product) => {
+        console.log(product);
+        return product;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }
 }
 module.exports = Product;
