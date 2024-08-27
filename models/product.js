@@ -22,7 +22,7 @@
 //     type: Sequelize.STRING, // STRING is a data type in SQL
 //     allowNull: false, // allowNull is a property that makes the description required
 //   },
-// }); 
+// });
 
 const getDb = require("../util/database").getDb;
 class Product {
@@ -34,7 +34,8 @@ class Product {
   }
   save() {
     const db = getDb();
-    db.collection("products")
+    return db
+      .collection("products")
       .insertOne(this)
       .then((result) => {
         console.log(result);
@@ -43,11 +44,7 @@ class Product {
         console.log(err);
       });
   }
-  static fetchAll() {
-    
-  }
-  static findById(id) {
-    
-  }
+  static fetchAll() {}
+  static findById(id) {}
 }
-module.exports = Product; 
+module.exports = Product;
