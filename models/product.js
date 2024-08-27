@@ -33,7 +33,15 @@ class Product {
     this.price = price;
   }
   save() {
-    
+    const db = getDb();
+    db.collection("products")
+      .insertOne(this)
+      .then((result) => {
+        console.log(result);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
   static fetchAll() {
     

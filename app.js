@@ -24,6 +24,6 @@ app.use(errorController.get404);
 
 
 mongoConnect(() => {
-  console.log(client);
+  console.log("Connected");
   app.listen(3000);
 });
