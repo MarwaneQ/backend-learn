@@ -6,7 +6,7 @@ const products = new Schema({
   title: { type: String, required: true },
   price: { type: Number, required: true },
   imageUrl: { type: String, required: true },
-  discription: { type: String, required: true },
+  description: { type: String, required: true },
 });
 // class Product {
 //   constructor(title, price, description, imageUrl, id, userId) {
@@ -83,3 +83,4 @@ const products = new Schema({
 // }
 
 // module.exports = Product;
+module.exports = mongoose.model('Product',products)
