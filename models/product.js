@@ -1,6 +1,13 @@
 // const mongodb = require('mongodb');
 // const getDb = require('../util/database').getDb;
-
+const mongoose = require("mongoose");
+const { Schema } = mongoose;
+const products = new Schema({
+  title: { type: String, required: true },
+  price: { type: Number, required: true },
+  imageUrl: { type: String, required: true },
+  discription: { type: String, required: true },
+});
 // class Product {
 //   constructor(title, price, description, imageUrl, id, userId) {
 //     this.title = title;
