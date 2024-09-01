@@ -1,8 +1,7 @@
-const path = require("path");
-
 const express = require("express");
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
+const path = require('node:path')
 
 const errorController = require("./controllers/error");
 const User = require("./models/user");
@@ -34,7 +33,7 @@ app.use(errorController.get404);
 
 mongoose
   .connect(
-    "mongodb+srv://node-user:db-pass@cluster-0.1b4j4.mongodb.net/shop?retryWrites=true&w=majority&appName=Cluster-0"
+    'mongodb+srv://node-user:db-pass@cluster-0.1b4j4.mongodb.net/?retryWrites=true&w=majority&appName=Cluster-0'
   )
   .then((result) => {
     User.findOne().then((user) => {

@@ -7,6 +7,11 @@ const products = new Schema({
   price: { type: Number, required: true },
   imageUrl: { type: String, required: true },
   description: { type: String, required: true },
+  userId: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+    required: true,
+  },
 });
 // class Product {
 //   constructor(title, price, description, imageUrl, id, userId) {
@@ -83,4 +88,4 @@ const products = new Schema({
 // }
 
 // module.exports = Product;
-module.exports = mongoose.model('Product',products)
+module.exports = mongoose.model("Product", products);
