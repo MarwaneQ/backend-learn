@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const session = require("express-session");
 const MongoDBStore = require("connect-mongodb-session")(session);
-
+const bcrypt = require("bcryptjs");
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 
