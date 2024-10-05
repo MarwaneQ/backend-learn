@@ -21,7 +21,7 @@ exports.postLogin = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
 
-  User.findById({ email: email })
+  User.findOne({ email: email })
     .then((user) => {
       if (!user) {
         return res.redirect("/login");
@@ -36,8 +36,8 @@ exports.postLogin = (req, res, next) => {
               console.log(err);
               res.redirect("/");
             });
-            // res.redirect("/login");
           }
+          res.redirect("/login");
         })
         .catch((err) => {
           console.log(err);
