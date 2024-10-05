@@ -1,3 +1,4 @@
+const { redirect } = require("react-router-dom");
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 exports.getLogin = (req, res, next) => {
@@ -17,14 +18,31 @@ exports.getSignup = (req, res, next) => {
 };
 
 exports.postLogin = (req, res, next) => {
-  User.findById("6606e689fb4c4cbf7dd95380")
+  const email = req.body.email;
+  const password = req.body.password;
+
+  User.findById({ email: email })
     .then((user) => {
-      req.session.isLoggedIn = true;
-      req.session.user = user;
-      req.session.save((err) => {
-        console.log(err);
-        res.redirect("/");
-      });
+      if (!user) {
+        return res.redirect("/login");
+      }
+      bcrypt
+        .compare(password, user.password)
+        .then((isMatch) => {
+          if (isMatch) {
+            req.session.isLoggedIn = true;
+            req.session.user = user;
+            return req.session.save((err) => {
+              console.log(err);
+              res.redirect("/");
+            });
+            // res.redirect("/login");
+          }
+        })
+        .catch((err) => {
+          console.log(err);
+          res.redirect("/login");
+        });
     })
     .catch((err) => console.log(err));
 };
