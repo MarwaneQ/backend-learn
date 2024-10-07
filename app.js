@@ -8,7 +8,7 @@ const MongoDBStore = require("connect-mongodb-session")(session);
 const bcrypt = require("bcryptjs");
 const errorController = require("./controllers/error");
 const User = require("./models/user");
-
+const csrf = require("csurf");
 const MONGODB_URI =
   "mongodb+srv://node-user:db-pass@cluster-0.1b4j4.mongodb.net/shop?retryWrites=true&w=majority&appName=Cluster-0";
 
@@ -18,6 +18,7 @@ const store = new MongoDBStore({
   collection: "sessions",
 });
 
+const csrfProtection = csrf()
 app.set("view engine", "ejs");
 app.set("views", "views");
 
@@ -35,7 +36,7 @@ app.use(
     store: store,
   })
 );
-
+app.use(csrfProtection)
 app.use((req, res, next) => {
   if (!req.session.user) {
     return next();
@@ -46,6 +47,12 @@ app.use((req, res, next) => {
       next();
     })
     .catch((err) => console.log(err));
+});
+
+app.use((req, res, next) => {
+  res.locals.isAuthenticated = req.session.isLoggedIn;
+  res.locals.csrfToken = req.csrfToken()
+  next();
 });
 
 app.use("/admin", adminRoutes);
