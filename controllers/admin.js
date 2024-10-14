@@ -63,7 +63,7 @@ exports.postEditProduct = (req, res, next) => {
 
   Product.findById(prodId)
     .then((product) => {
-      if (product.userId.toString() !== req.user._id.toString()) {
+      if (product.userId.toString() !== req.user._id.toString()) { // only the owner of the product can edit it
         return res.redirect("/");
       }
       product.title = updatedTitle;
@@ -95,7 +95,7 @@ exports.getProducts = (req, res, next) => {
 exports.postDeleteProduct = (req, res, next) => {
   const prodId = req.body.productId;
   /** findByIdAndRemove -- REMOVED!! */
-  Product.findByIdAndDelete(prodId)
+  Product.deleteOne({ _id: prodId, userId: req.user._id }) // only delete if the user is the owner of the product
     .then(() => {
       console.log("DESTROYED PRODUCT");
       res.redirect("/admin/products");
