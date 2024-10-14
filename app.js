@@ -9,6 +9,7 @@ const bcrypt = require("bcryptjs");
 const errorController = require("./controllers/error");
 const User = require("./models/user");
 const csrf = require("csurf");
+const flash = require("connect-flash");
 const MONGODB_URI =
   "mongodb+srv://node-user:db-pass@cluster-0.1b4j4.mongodb.net/shop?retryWrites=true&w=majority&appName=Cluster-0";
 
@@ -37,6 +38,7 @@ app.use(
   })
 );
 app.use(csrfProtection)
+app.use(flash())
 app.use((req, res, next) => {
   if (!req.session.user) {
     return next();
