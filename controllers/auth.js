@@ -3,6 +3,7 @@ const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 const { path } = require("animejs");
 const crypto = require("crypto");
+const { validationResult } = require("express-validator");
 exports.getLogin = (req, res, next) => {
   let message = req.flash("error");
   if (message.length > 0) {
@@ -18,9 +19,16 @@ exports.getLogin = (req, res, next) => {
 };
 
 exports.getSignup = (req, res, next) => {
+  let message = req.flash("error");
+  if (message.length > 0) {
+    message = message[0];
+  } else {
+    message = null;
+  }
   res.render("auth/signup", {
     path: "/signup",
     pageTitle: "Signup",
+    errorMessage: message,
   });
 };
 
@@ -59,6 +67,17 @@ exports.postSignup = (req, res, next) => {
   const email = req.body.email;
   const password = req.body.password;
   const confirmPassword = req.body.confirmPassword;
+  const errors = validationResult(req);
+  if (errors.isEmpty()) {
+    return res
+      .status(422)
+      .render("auth/signup", {
+        path: "/signup",
+        pageTitle: "Signup",
+        errorMessage: errors.array()[0].msg,
+      });
+  }
+
   User.findOne({ email: email }).then((userDoc) => {
     if (userDoc) {
       return res.redirect("/signup");
@@ -109,7 +128,7 @@ exports.postReset = (req, res, next) => {
       return res.redirect("/reset");
     }
     const token = buffer.toString("hex");
-    User.findOne({email:req.body.email})
+    User.findOne({ email: req.body.email })
       .then((user) => {
         if (!user) {
           req.flash("error", "No account with that email found.");

@@ -63,7 +63,7 @@ exports.postEditProduct = (req, res, next) => {
 
   Product.findById(prodId)
     .then((product) => {
-      if (product.userId.toString() !== req.user._id.toString()) { // only the owner of the product can edit it
+      if (product.userId.toString() !== req.user._id.toString()) { // only the owner of the product can edit it 
         return res.redirect("/");
       }
       product.title = updatedTitle;
